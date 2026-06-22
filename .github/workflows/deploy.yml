@@ -1,0 +1,27 @@
+name: Express Local Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stop Existing Container
+        shell: cmd
+        run: |
+          docker stop backend-app || exit 0
+          docker rm backend-app || exit 0
+
+      - name: Build Docker Image
+        run: docker build -t backend-app .
+
+      - name: Start Container
+        run: |
+          docker run -d --name backend-app -p 5000:5000 backend-app
