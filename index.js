@@ -12,5 +12,5 @@ app.use("/api", routes)
 
 app.listen(5000, (req, res)=>{
     connectDB()
-    console.log("the app is running on port 3000")
+    console.log("the app is running on port 5000")
 })
